@@ -21,6 +21,10 @@ function computerPlay() {
 function playRound(playerSelection, computerSelection) {
 // Start round with a user prompt selection (enforced lower case), and a random selection for the computer.
     playerSelection = prompt("Enter rock, paper, or scissors.").toLowerCase()
+// Attempting an input verifier to make sure they only input valid entries.
+    while (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
+        playerSelection = prompt("Invalid input. Please enter rock, paper, or scissors.").toLowerCase()
+    }
     computerSelection = computerPlay()
 // Start with tie to eliminate 3 inputs, then run through win/loss conditions for all three options.
     if (playerSelection === computerSelection) {
@@ -56,7 +60,9 @@ function game() {
        } else if (roundResult.includes("lose")) {
            computerScore++;
        } 
-       alert(yourScore + " - " +computerScore) // your code here!
+//return score after each round of play
+       alert(yourScore + " - " +computerScore)
      }
-    alert(`Game over! The final score was: ${yourScore} - ${computerScore}`);
+//report outcome after 5 rounds played, for loop ends
+     alert(`Game over! The final score was: ${yourScore} - ${computerScore}`);
     }
