@@ -1,5 +1,5 @@
 function computerPlay() {
-   let number = Math.floor(Math.random()*3 + 1);
+   let number = Math.floor(Math.random() * 3 + 1);
  // Randomly select a number between 1 and 3. The + 1 is to move the range from 0-2 to 1-3. 
    switch(number) {
       case 1 :
@@ -8,33 +8,45 @@ function computerPlay() {
       case 2 :
           output = "paper";
           break;
-      case 3:
+      case 3 :
           output = "scissors";
           break;
    } return output;
 }
 
 function playRound(playerSelection, computerSelection) {
+// Start round with a user prompt selection, and a random selection for the computer.
+    playerSelection = prompt("Enter rock, paper, or scissors.").toLowerCase()
+    computerSelection = computerPlay()
 // Start with tie to eliminate 3 inputs, then run through win/loss conditions for all three options.
-    let playerSelection = playerSelection.toLowerCase()
     if (playerSelection === computerSelection) {
-        return "Tie, replay!";
+        return message = "Tie, replay!";
     } else if (playerSelection === "rock" && computerSelection === "paper") {
-        return "You lose! Paper beats Rock.";
+        return message = "You lose! Paper beats Rock.";
     } else if (playerSelection === "rock" && computerSelection === "scissors") {
-        return "You win! Rock beats Scissors!";
+        return message = "You win! Rock beats Scissors!";
     } else if (playerSelection === "paper" && computerSelection === "rock") {
-        return "You win! Paper beats Rock!";
+        return message = "You win! Paper beats Rock!";
     } else if (playerSelection === "paper" && computerSelection === "scissors") {
-        return "You lose! Scissors beats Paper.";
+        return message = "You lose! Scissors beats Paper.";
     } else if (playerSelection === "scissors" && computerSelection === "rock") {
-        return "You lose! Rock beats Scissors!";
+        return message = "You lose! Rock beats Scissors!";
     } else if (playerSelection === "scissors" && computerSelection === "paper") {
-        return "You win! Scissors beats paper!";
+        return message = "You win! Scissors beats paper!";
     }        
 }
 
-const playerSelection = "rock";
-const computerSelection = computerPlay();
-console.log(computerSelection)
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+    let yourScore = 0
+    let computerScore = 0
+    for (let i = 0; i < 5; i++) {
+       roundResult = alert(playRound());
+       if (roundResult.includes("win")) {
+            yourScore++;
+       } else if (roundResult.includes("lose")) {
+           computerScore++;
+       } 
+       console.log(yourScore + " - " +computerScore) // your code here!
+     }
+    console.log("Game over");
+    }
