@@ -28,7 +28,7 @@ function playRound(playerSelection, computerSelection) {
     computerSelection = computerPlay()
 // Start with tie to eliminate 3 inputs, then run through win/loss conditions for all three options.
     if (playerSelection === computerSelection) {
-        return message = "Tie, replay!";
+        return message = "Tie, no points for either player!";
     } else if (playerSelection === "rock" && computerSelection === "paper") {
         return message = "You lose! Paper beats Rock.";
     } else if (playerSelection === "rock" && computerSelection === "scissors") {
