@@ -12,20 +12,8 @@ function computerChoice() {
 // had help with this, basically create a nested set of while loops to ensure that 
 // null and invalid options can never be returned.
 function playerChoice() {
-    let input = prompt("Input rock, paper, or scissors.");
-    while (input == null) {
-        input = prompt("Input rock, paper, or scissors.");
-    }
-    input = input.toLowerCase();
-    let check = validateChoice(input);
-    while (check == false) {
-        input = prompt("Input rock, paper, or scissors.");
-        while (input == null) {
-            input = prompt("Input rock, paper, or scissors.");
-        }
-        input = input.toLowerCase()
-        check = validateChoice(input)
-    } return input;
+    let input = button;
+    return input;
 }
 // validates choice returns true if included in global const array 'choices'
 function validateChoice(choice){
@@ -49,7 +37,7 @@ function checkWinner(choiceP,choiceC) {
 }
 
 function playRound(round){
-    const playerSelection = playerChoice();
+    const playerSelection = buttons;
     const computerSelection = computerChoice();
     const winner = checkWinner(playerSelection,computerSelection)
     winners.push(winner);
@@ -81,3 +69,12 @@ function logRound(playerChoice,computerChoice,winner,round) {
     } else {console.log(winner,' won the round.')
     }
 }
+
+
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+       return button.id;
+    });
+  });
