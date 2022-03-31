@@ -1,4 +1,17 @@
 // Global variable of options available
+let playerScore = 0;
+let computerScore = 0;
+let round = 1;
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', function(e) {
+        playRound(e.target.id);
+        round++
+    })
+ //       if (playerScore != 5 && computerScore != 5) {
+ //           playRound(e.target.id);
+})
 
 const choices = ['rock','paper','scissors'];
 const winners =[];
@@ -9,18 +22,12 @@ function computerChoice() {
    return choices[Math.floor(Math.random() * 3)];
 }
 
-// had help with this, basically create a nested set of while loops to ensure that 
-// null and invalid options can never be returned.
+// Trying to get the playerChoice to equal the ID of the element from button press
 function playerChoice() {
     let input = button;
     return input;
 }
-// validates choice returns true if included in global const array 'choices'
-function validateChoice(choice){
-    if (choices.includes(choice) == true) {
-        return true;
-    } return false;
-}
+
 function checkWinner(choiceP,choiceC) {
     if (choiceP === choiceC) {
         return "Tie";
@@ -36,23 +43,15 @@ function checkWinner(choiceP,choiceC) {
     } else {return "Computer"}
 }
 
-function playRound(round){
-    const playerSelection = buttons;
+function playRound(playerChoice){
+    const playerSelection = playerChoice;
     const computerSelection = computerChoice();
     const winner = checkWinner(playerSelection,computerSelection)
     winners.push(winner);
     logRound(playerSelection,computerSelection,winner,round)
+    ;
 }
 
-function game() {
-    const playerScore = 0;
-    const computerScore = 0;
-
-    for (let i = 1; i <= 5; i++){
-        playRound(i)
-    }
-    logWins()
-}
 function logWins() {
     let playerWins = winners.filter((item) => item == 'Player').length;
     let computerWins = winners.filter((item) => item == 'Computer').length;
@@ -70,11 +69,3 @@ function logRound(playerChoice,computerChoice,winner,round) {
     }
 }
 
-
-
-const buttons = document.querySelectorAll('button');
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-       return button.id;
-    });
-  });
