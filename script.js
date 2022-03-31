@@ -1,68 +1,83 @@
-// First function is to have the computer pick a random number, and assign that to "rock" "paper" or "scissors"
+// Global variable of options available
 
-function computerPlay() {
-   let number = Math.floor(Math.random() * 3 + 1);
- // Randomly select a number between 1 and 3. The + 1 is to move the range from 0-2 to 1-3. 
-   switch(number) {
-      case 1 :
-          output = "rock";
-          break;
-      case 2 :
-          output = "paper";
-          break;
-      case 3 :
-          output = "scissors";
-          break;
-   } return output;
+const choices = ['rock','paper','scissors'];
+const winners =[];
+
+ // Randomly select a number between 0 and 2 and return the value in the choices array.
+
+function computerChoice() {
+   return choices[Math.floor(Math.random() * 3)];
 }
 
-//This function is to run a round of rock paper scissors. Contains the actual showdown and results in a victory, loss, or tie message.
-
-function playRound(playerSelection, computerSelection) {
-// Start round with a user prompt selection (enforced lower case), and a random selection for the computer.
-    playerSelection = prompt("Enter rock, paper, or scissors.").toLowerCase()
-// Attempting an input verifier to make sure they only input valid entries.
-    while (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-        playerSelection = prompt("Invalid input. Please enter rock, paper, or scissors.").toLowerCase()
+// had help with this, basically create a nested set of while loops to ensure that 
+// null and invalid options can never be returned.
+function playerChoice() {
+    let input = prompt("Input rock, paper, or scissors.");
+    while (input == null) {
+        input = prompt("Input rock, paper, or scissors.");
     }
-    computerSelection = computerPlay()
-// Start with tie to eliminate 3 inputs, then run through win/loss conditions for all three options.
-    if (playerSelection === computerSelection) {
-        return message = "Tie, no points for either player!";
-    } else if (playerSelection === "rock" && computerSelection === "paper") {
-        return message = "You lose! Paper beats Rock.";
-    } else if (playerSelection === "rock" && computerSelection === "scissors") {
-        return message = "You win! Rock beats Scissors!";
-    } else if (playerSelection === "paper" && computerSelection === "rock") {
-        return message = "You win! Paper beats Rock!";
-    } else if (playerSelection === "paper" && computerSelection === "scissors") {
-        return message = "You lose! Scissors beats Paper.";
-    } else if (playerSelection === "scissors" && computerSelection === "rock") {
-        return message = "You lose! Rock beats Scissors!";
-    } else if (playerSelection === "scissors" && computerSelection === "paper") {
-        return message = "You win! Scissors beats paper!";
-    }        
+    input = input.toLowerCase();
+    let check = validateChoice(input);
+    while (check == false) {
+        input = prompt("Input rock, paper, or scissors.");
+        while (input == null) {
+            input = prompt("Input rock, paper, or scissors.");
+        }
+        input = input.toLowerCase()
+        check = validateChoice(input)
+    } return input;
+}
+// validates choice returns true if included in global const array 'choices'
+function validateChoice(choice){
+    if (choices.includes(choice) == true) {
+        return true;
+    } return false;
+}
+function checkWinner(choiceP,choiceC) {
+    if (choiceP === choiceC) {
+        return "Tie";
+    } 
+    else if (choiceP === "rock" && choiceC === "scissors") {
+        return message = "Player";
+    } 
+    else if (choiceP === "paper" && choiceC === "rock") {
+        return "Player";
+    } 
+    else if (choiceP === "scissors" && choiceC === "paper") {
+        return  "Player";
+    } else {return "Computer"}
 }
 
-// This is the 5 round implementation of the series.
+function playRound(round){
+    const playerSelection = playerChoice();
+    const computerSelection = computerChoice();
+    const winner = checkWinner(playerSelection,computerSelection)
+    winners.push(winner);
+    logRound(playerSelection,computerSelection,winner,round)
+}
 
 function game() {
-// start both players at 0    
-    let yourScore = 0
-    let computerScore = 0
-// for loop to cycle through 5 rounds exactly
-    for (let i = 0; i < 5; i++) {
-// the return message from the playRound() function contains "win" or "lose", which indicates how which score variable to increment
-       let roundResult = playRound();
-       alert(roundResult);
-       if (roundResult.includes("win")) {
-            yourScore++;
-       } else if (roundResult.includes("lose")) {
-           computerScore++;
-       } 
-//return score after each round of play
-       alert(yourScore + " - " +computerScore)
-     }
-//report outcome after 5 rounds played, for loop ends
-     alert(`Game over! The final score was: ${yourScore} - ${computerScore}`);
+    const playerScore = 0;
+    const computerScore = 0;
+
+    for (let i = 1; i <= 5; i++){
+        playRound(i)
     }
+    logWins()
+}
+function logWins() {
+    let playerWins = winners.filter((item) => item == 'Player').length;
+    let computerWins = winners.filter((item) => item == 'Computer').length;
+    let ties = winners.filter((item) => item == 'Tie').length;
+    console.log(`Game over. Results: Wins - ${playerWins} Losses - ${computerWins} Ties - ${ties}`)
+}
+
+function logRound(playerChoice,computerChoice,winner,round) {
+    console.log('Round :',round);
+    console.log('Player chose: ',playerChoice);
+    console.log('Computer chose: ',computerChoice);
+    if (winner == 'Tie') {
+        console.log('Tie, nobody wins.')
+    } else {console.log(winner,' won the round.')
+    }
+}
