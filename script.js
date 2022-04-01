@@ -12,9 +12,9 @@ buttons.forEach((button) => {
         if (playerWins != 5 && computerWins !=5) {
             playRound(e.target.id);
             rounds++;
-            console.log(`Score: Player - ${playerWins} Computer - ${computerWins} Ties - ${ties}`);
-            console.log(`Round ${rounds}`);
-            } else {alert("Game over, refresh page for replay.")}
+            roundWinner.textContent = `Round ${rounds}`;
+            scoreTracker.textContent = `Score: Player - ${playerWins} Computer - ${computerWins} Ties - ${ties}`;
+            } else {gameWinner(playerWins)}
          })})
 const roundDisplay = document.querySelector(".round");
 const showDown = document.querySelector(".showdown");
@@ -66,4 +66,10 @@ function logWinner(winner) {
 }
 function logShowdown(playerSelection,computerSelection) {
     showDown.textContent = `You played ${playerSelection} and the computer played ${computerSelection}`;
+}
+
+function gameWinner(playerWins) {
+    if (playerWins == 5) {
+        alert("Game over. You win!!!!")
+    } else {alert ("Sadly, you lose. Good day, sir!")}
 }
